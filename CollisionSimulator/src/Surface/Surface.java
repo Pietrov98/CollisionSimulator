@@ -33,10 +33,9 @@ public class Surface {
 				if(j != i && moveables.get(i).getPostion().getVx() == moveables.get(j).getPostion().getVx() 
 						&& moveables.get(i).getPostion().getVy() == moveables.get(j).getPostion().getVy())
 				{
-					System.out.println("zderzenie1 " + moveables.get(i).getPostion().getVx() + " " + moveables.get(i).getPostion().getVy() 
+					System.out.println("zderzenie " + moveables.get(i).getPostion().getVx() + " " + moveables.get(i).getPostion().getVy() 
 							+ " " + moveables.get(j).getPostion().getVx() + " " + moveables.get(j).getPostion().getVy());
 					
-					System.out.println("rycht");
 					for(int k = 0; k < moveables.size(); k++) 
 					{
 						System.out.println(moveables.get(k).getPostion().getVx() + " " + moveables.get(k).getPostion().getVy() 
@@ -44,7 +43,16 @@ public class Surface {
 					}
 					//tutaj tylko jeden wektor zmienia ten co sprawdzamy czyli i
 					Vector2D vel = new Vector2D();
-					vel.setVx(moveables.get(i).getVelocity().getVx() * (-1));
+					if(moveables.get(i).getVelocity().getAngle() < Math.PI/4)
+					{
+						vel.setVx(moveables.get(i).getVelocity().getVx() * (-1));
+						System.out.println("zmiana x");
+					}
+					if(moveables.get(i).getVelocity().getAngle() > Math.PI/4)
+					{
+						vel.setVx(moveables.get(i).getVelocity().getVy() * (-1));
+						System.out.println("zmiana y");
+					}
 					//vel.setVy(moveables.get(i).getVelocity().getVy() * (-1));
 					moveables.get(i).setPosition(vel);
 					/*Vector2D vel2 = new Vector2D();

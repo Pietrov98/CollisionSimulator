@@ -13,7 +13,8 @@ public class Main {
 	public static int stop;
 	
 	public static void main(String[] args) throws FileNotFoundException{
-		//new GUI();
+		
+		
 		Main.stop = 1;
 		
 		Surface s = new Surface();
@@ -21,7 +22,7 @@ public class Main {
 		Context context = new Context();
 		
 		
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < 20; i++)
 		{
 			Random r = new Random();
 			Vector2D pos = new Vector2D();
