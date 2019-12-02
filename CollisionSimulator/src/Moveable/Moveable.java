@@ -1,13 +1,17 @@
 package Moveable;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.Random;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
-public class Moveable{
+public class Moveable extends JPanel{
 	private Vector2D position;
 	private Vector2D velocity;
+	
 	
 	public MoveableData createData()
 	{

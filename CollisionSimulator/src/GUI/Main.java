@@ -1,69 +1,47 @@
 package GUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.RepaintManager;
+import java.util.Random;
 
 import Moveable.Caretaker;
-import Moveable.Moveable;
+import Moveable.Vector2D;
+import State.Context;
 import Surface.Surface;
 
 public class Main {
 
-	static int stop = 0;
+	public static int stop;
 	
-	public static void main(String[] args) throws FileNotFoundException
-	{
+	public static void main(String[] args) throws FileNotFoundException{
 		//new GUI();
-		JFrame window = new JFrame();
-	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    window.setBounds(30, 30, 300, 300);
-	    window.setSize(400, 400);
-	    window.setVisible(true);
-	    JButton stopButton = new JButton("Stop");
-	    stopButton.setBounds(250,0,80,30);
-	    JButton startButton = new JButton("Start");
-	    startButton.setBounds(250,50,80,30);
-	    JButton exitButton = new JButton("Koniec");
-	    exitButton.setBounds(250,100,80,30);
-	    
-	    stopButton.addActionListener(new ActionListener(){  
-	    	public void actionPerformed(ActionEvent e)
-	    	{  
-	    		stop = 1; 
-	    	}}); 
-	    startButton.addActionListener(new ActionListener(){  
-	    	public void actionPerformed(ActionEvent e)
-	    	{  
-	    		stop = 0; 
-	    	}}); 
-	    
-	    exitButton.addActionListener(new ActionListener(){  
-	    	public void actionPerformed(ActionEvent e)
-	    	{  
-	    		stop = 3; 
-	    	}}); 
-	    window.add(stopButton);
-	    window.add(startButton);
-	    window.add(exitButton);
-	    
-	    
+		Main.stop = 1;
+		
 		Surface s = new Surface();
 		Caretaker c = new Caretaker(s);
-		for(int i = 0; i < 20; i++)
-		{
-			s.addMoveable();
-		}
-		c.save();
-		int i = 0;
+		Context context = new Context();
 		
-		while(stop != 3)
+		
+		for(int i = 0; i < 5; i++)
 		{
-			System.out.println(stop);
+			Random r = new Random();
+			Vector2D pos = new Vector2D();
+			pos.setVx(r.nextInt(100) + 1);
+			pos.setVy(r.nextInt(100) + 1);
+
+			Vector2D vel = new Vector2D();
+			vel.setVx(r.nextInt(20) + 1);
+			vel.setVy(r.nextInt(20) + 1);
+			
+			s.addMoveable(pos, vel);
+		}
+		
+		UserInterface ui = new UserInterface();
+		ui.displayUI(c , context);
+		
+		while(stop != 2)
+		{
+			System.out.print("");
+			
 			if(stop == 0)
 			{
 				s.nextIteration();
@@ -71,9 +49,6 @@ public class Main {
 			
 		}
 		
-		c.save();
-		
-		//c.load();
 		
 	}
 }

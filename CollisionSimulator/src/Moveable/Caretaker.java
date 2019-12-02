@@ -1,6 +1,7 @@
 package Moveable;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DataProviders.DataLoader;
@@ -28,11 +29,18 @@ public class Caretaker {
 	public void load()
 	{
 		//odczytanie z pliku listy
-		loader.loadData();
-		for(int i = 0; i < moveables.size(); i++)
+		this.moveables = loader.loadData();
+		surface.setMoveables(new ArrayList<Moveable>());
+		for(int i = 0; i < this.moveables.size(); i++)
 		{
-			System.out.println(moveables.get(i).getPostion().getVx() + " " + moveables.get(i).getPostion().getVy() 
-					+ " " + moveables.get(i).getVelocity().getVx() + " " + moveables.get(i).getVelocity().getVy());
+			Vector2D pos = new Vector2D();
+			pos.setVx(this.moveables.get(i).getPostion().getVx());
+			pos.setVy(this.moveables.get(i).getPostion().getVy());
+			
+			Vector2D vel = new Vector2D();
+			vel.setVx(this.moveables.get(i).getVelocity().getVx());
+			vel.setVy(this.moveables.get(i).getVelocity().getVy());
+			surface.addMoveable(pos, vel);
 		}
 	}
 	

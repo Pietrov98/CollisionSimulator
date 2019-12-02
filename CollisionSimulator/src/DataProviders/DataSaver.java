@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import GUI.DataDisplayer;
 import Moveable.MoveableData;
 
 public class DataSaver {
@@ -18,10 +19,8 @@ public class DataSaver {
 		{
 			write.println(moveables.get(i).getPostion().getVx() + " " + moveables.get(i).getPostion().getVy() 
 					+ " " + moveables.get(i).getVelocity().getVx() + " " + moveables.get(i).getVelocity().getVy());
-			System.out.println(moveables.get(i).getPostion().getVx() + " " + moveables.get(i).getPostion().getVy() 
-					+ " " + moveables.get(i).getVelocity().getVx() + " " + moveables.get(i).getVelocity().getVy());
 		}
-		
+		//DataDisplayer.displayData(moveables);
 		write.close();
 	}
 }

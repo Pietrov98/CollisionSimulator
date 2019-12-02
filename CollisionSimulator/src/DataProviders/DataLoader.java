@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
+import GUI.DataDisplayer;
 import Moveable.MoveableData;
 import Moveable.Vector2D;
 
@@ -45,6 +46,8 @@ public class DataLoader {
 			obj.setVelocity(vel);
 			moveable_helper.add(obj);
 		}
+		
+		DataDisplayer.displayData(moveable_helper);
 		
 		return moveable_helper;
 		
