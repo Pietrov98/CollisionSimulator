@@ -1,11 +1,12 @@
 package State;
 
 import GUI.Main;
+import Surface.Surface;
 
 public class RunState extends State{
 	public void Handle()
 	{
-		Main.stop = 0;
+		Surface.stop = 0;
 	}
 
 }

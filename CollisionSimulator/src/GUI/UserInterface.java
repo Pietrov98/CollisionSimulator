@@ -6,29 +6,20 @@ import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Moveable.Caretaker;
 import State.Context;
+import Surface.Surface;
 
-public class UserInterface {
-	public void displayUI(Caretaker c, Context context)
+public class UserInterface extends JPanel{
+	JButton stopButton = new JButton("Stop");
+	JButton startButton = new JButton("Start");
+	JButton exitButton = new JButton("Koniec");
+	JButton saveButton = new JButton("Zapisz");
+	JButton loadButton = new JButton("Wczytaj");
+	public UserInterface(Context context, Caretaker caretaker)
 	{
-		JFrame window = new JFrame();
-	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    window.setBounds(30, 30, 300, 300);
-	    window.setSize(400, 400);
-	    window.setVisible(true);
-	    JButton stopButton = new JButton("Stop");
-	    stopButton.setBounds(250,0,80,30);
-	    JButton startButton = new JButton("Start");
-	    startButton.setBounds(250,50,80,30);
-	    JButton exitButton = new JButton("Koniec");
-	    exitButton.setBounds(250,100,80,30);
-	    JButton saveButton = new JButton("Zapisz");
-	    saveButton.setBounds(250,150,80,30);
-	    JButton loadButton = new JButton("Wczytaj");
-	    loadButton.setBounds(250,200,80,30);
-	    
 	    stopButton.addActionListener(new ActionListener(){  
 	    	public void actionPerformed(ActionEvent e)
 	    	{  
@@ -52,7 +43,7 @@ public class UserInterface {
 	    	public void actionPerformed(ActionEvent e)
 	    	{  
 	    		try {
-					c.save();
+	    			caretaker.save();
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -61,13 +52,13 @@ public class UserInterface {
 	    loadButton.addActionListener(new ActionListener(){  
 	    	public void actionPerformed(ActionEvent e)
 	    	{  
-	    		c.load();
+	    		caretaker.load();
 	    	}}); 
-	    window.add(stopButton);
-	    window.add(startButton);
-	    window.add(exitButton);
-	    window.add(saveButton);
-	    window.add(loadButton);
+	    this.add(stopButton, BOTTOM_ALIGNMENT);
+	    this.add(startButton, BOTTOM_ALIGNMENT);
+	    this.add(exitButton, BOTTOM_ALIGNMENT);
+	    this.add(saveButton, BOTTOM_ALIGNMENT);
+	    this.add(loadButton, BOTTOM_ALIGNMENT);
 	    
 	}
 }

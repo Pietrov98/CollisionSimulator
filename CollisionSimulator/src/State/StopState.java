@@ -1,9 +1,10 @@
 package State;
 import GUI.Main;
+import Surface.Surface;
 
 public class StopState extends State{
 	public void Handle()
 	{
-		Main.stop = 1;	
+		Surface.stop = 1;	
 	}
 }

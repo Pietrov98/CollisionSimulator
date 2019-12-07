@@ -12,13 +12,13 @@ import Moveable.MoveableData;
 import Moveable.Vector2D;
 
 public class DataLoader {
-	private String filename;
+	private String filename = "results.txt";
 	
 	public List<MoveableData> loadData()
 	{
 		List<MoveableData> moveable_helper = new ArrayList<MoveableData>();
 		int arr[] = new int[4];
-		File file = new File("results.txt");
+		File file = new File(filename);
         Scanner in = null;
 		try {
 			in = new Scanner(file);

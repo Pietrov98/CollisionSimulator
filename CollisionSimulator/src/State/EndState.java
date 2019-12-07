@@ -1,10 +1,11 @@
 package State;
 
 import GUI.Main;
+import Surface.Surface;
 
 public class EndState extends State{
 	public void Handle()
 	{
-		Main.stop = 2;
+		Surface.stop = 2;
 	}
 }

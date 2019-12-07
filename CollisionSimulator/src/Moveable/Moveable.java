@@ -1,14 +1,32 @@
 package Moveable;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import javax.swing.JComponent;
 
 public class Moveable{
-	private Vector2D position;
-	private Vector2D velocity;
+	private Vector2D position = new Vector2D();
+	private Vector2D velocity = new Vector2D();
+	int diameter;
+	private Color color;
 	
+	public Moveable() {
+		//position.setVx(pos_x);
+		//position.setVy(pos_y);
+		//velocity.setVx(5);
+		//velocity.setVy(2);
+		this.diameter = 20;
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		Color randomColor = new Color(r, g, b);
+		this.color = randomColor;
+	}
+
 	public MoveableData createData()
 	{
 		MoveableData obj = new MoveableData();
@@ -23,9 +41,17 @@ public class Moveable{
 		//bedzie ladowac zapisane
 	}
 	
+	public void draw(Graphics g) {
+		
+		g.setColor(this.color);
+        Graphics2D g2d = (Graphics2D) g;
+        Ellipse2D.Double circle = new Ellipse2D.Double(position.getVx() - diameter / 2, position.getVx() - diameter / 2, diameter, diameter);
+        g2d.fill(circle);
+    }
+	
 	public void move() //jeden promienia, 300x300 plansza
 	{
-		 if (position.getVx() + velocity.getVx() < 0 || (position.getVx() + 1 + velocity.getVx()) > (300 - 1))
+		/* if (position.getVx() + velocity.getVx() < 0 || (position.getVx() + 1 + velocity.getVx()) > (300 - 1))
 		 {
 			 //System.out.println("tak1 " + position.getVx() + " " + position.getVy());
              velocity.setVx(velocity.getVx() * -1);
@@ -37,7 +63,29 @@ public class Moveable{
          }
        
          this.position.setVx(position.getVx() + velocity.getVx());
-         this.position.setVy(position.getVy() + velocity.getVy());
+         this.position.setVy(position.getVy() + velocity.getVy());*/
+		
+		 position.setVx(((double) (position.getVx() + velocity.getVx())));
+	        if (position.getVx() - diameter / 2 < 0) 
+	        {
+	            position.setVx((diameter / 2));
+	            velocity.setVx((-velocity.getVx()));
+	        } 
+	        else if(position.getVx() + diameter / 2 > 390) 
+	        {
+	            velocity.setVx((-velocity.getVx()));
+	        }
+	        
+	        position.setVy(((double) (position.getVy() + velocity.getVy())));
+	        if(position.getVy() - diameter / 2 < 0) 
+	        {
+	            velocity.setVy((-velocity.getVy()));
+	        } 
+	        else if(position.getVy() + diameter / 2 > 360) 
+	        {
+	            position.setVy((360 - diameter / 2));
+	            velocity.setVy((-velocity.getVy()));
+	        }
 
 	}
 	
@@ -61,6 +109,10 @@ public class Moveable{
 	public void setVelocity(Vector2D velocity)
 	{
 		this.velocity = velocity;
+	}
+
+	public int getDiameter() {
+		return diameter;
 	}
 
 }
