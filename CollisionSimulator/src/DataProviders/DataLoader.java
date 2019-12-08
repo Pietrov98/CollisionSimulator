@@ -1,5 +1,6 @@
 package DataProviders;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class DataLoader {
 		try {
 			in = new Scanner(file);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         System.out.println();
@@ -44,6 +44,13 @@ public class DataLoader {
 			vel.setVy(arr[3]);
 			obj.setPosition(pos);
 			obj.setVelocity(vel);
+			for(int i = 0; i < 3; i++)
+			{
+				read = in.next();
+				arr[i] = Integer.parseInt(read);
+			}
+			Color color = new Color(arr[0], arr[1], arr[2]);
+			obj.setColor(color);
 			moveable_helper.add(obj);
 		}
 		

@@ -17,10 +17,11 @@ public class DataSaver {
 		PrintWriter write = new PrintWriter(filename);
 		for(int i = 0; i < moveables.size(); i++)
 		{
-			write.println(moveables.get(i).getPostion().getVx() + " " + moveables.get(i).getPostion().getVy() 
+			write.print(moveables.get(i).getPostion().getVx() + " " + moveables.get(i).getPostion().getVy() 
 					+ " " + moveables.get(i).getVelocity().getVx() + " " + moveables.get(i).getVelocity().getVy());
+			write.println(" " + moveables.get(i).getColor().getRed() + " " + moveables.get(i).getColor().getGreen() + " " + moveables.get(i).getColor().getBlue());
 		}
-		//DataDisplayer.displayData(moveables);
+		DataDisplayer.displayData(moveables);
 		write.close();
 	}
 }

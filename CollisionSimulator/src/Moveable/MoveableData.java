@@ -1,9 +1,12 @@
 package Moveable;
 
+import java.awt.Color;
+
 public class MoveableData{
 
 	private Vector2D position;
 	private Vector2D velocity;
+	private Color color;
 	
 	public Vector2D getPostion()
 	{
@@ -25,6 +28,18 @@ public class MoveableData{
 	public void setVelocity(Vector2D velocity)
 	{
 		this.velocity = velocity;
+	}
+
+	public Color getColor() 
+	{
+		
+		return color;
+	}
+
+	public void setColor(Color color) 
+	{
+		this.color = color;
+		
 	}
 			
 

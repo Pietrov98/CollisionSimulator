@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
+import java.util.Vector;
 
 
 public class Moveable{
@@ -13,18 +14,11 @@ public class Moveable{
 	int diameter;
 	private Color color;
 	
-	public Moveable() {
-		//position.setVx(pos_x);
-		//position.setVy(pos_y);
-		//velocity.setVx(5);
-		//velocity.setVy(2);
-		this.diameter = 20;
-		Random rand = new Random();
-		float r = rand.nextFloat();
-		float g = rand.nextFloat();
-		float b = rand.nextFloat();
-		Color randomColor = new Color(r, g, b);
-		this.color = randomColor;
+	public Moveable() 
+	{
+		
+		this.diameter = 15;
+		
 	}
 
 	public MoveableData createData()
@@ -32,8 +26,9 @@ public class Moveable{
 		MoveableData obj = new MoveableData();
 		obj.setPosition(position);
 		obj.setVelocity(velocity);
+		obj.setColor(this.color);
 		
-		return obj; //to bedzie zapisywac obiekty
+		return obj;
 	}
 	
 	public void loadData(MoveableData obj)
@@ -45,26 +40,12 @@ public class Moveable{
 		
 		g.setColor(this.color);
         Graphics2D g2d = (Graphics2D) g;
-        Ellipse2D.Double circle = new Ellipse2D.Double(position.getVx() - diameter / 2, position.getVx() - diameter / 2, diameter, diameter);
+        Ellipse2D.Double circle = new Ellipse2D.Double(position.getVx() - diameter / 2, position.getVy() - diameter / 2, diameter, diameter);
         g2d.fill(circle);
     }
 	
 	public void move() //jeden promienia, 300x300 plansza
 	{
-		/* if (position.getVx() + velocity.getVx() < 0 || (position.getVx() + 1 + velocity.getVx()) > (300 - 1))
-		 {
-			 //System.out.println("tak1 " + position.getVx() + " " + position.getVy());
-             velocity.setVx(velocity.getVx() * -1);
-         }
-         if (position.getVy() + velocity.getVy() < 0 || (position.getVy() + 1 + velocity.getVy()) > (300 - 1)) 
-         {
-        	 //System.out.println("tak2 " + position.getVx() + " " + position.getVy());
-        	 velocity.setVy(velocity.getVy() * -1);
-         }
-       
-         this.position.setVx(position.getVx() + velocity.getVx());
-         this.position.setVy(position.getVy() + velocity.getVy());*/
-		
 		 position.setVx(((double) (position.getVx() + velocity.getVx())));
 	        if (position.getVx() - diameter / 2 < 0) 
 	        {
@@ -89,7 +70,7 @@ public class Moveable{
 
 	}
 	
-	public Vector2D getPostion()
+	public Vector2D getPosition()
 	{
 		return position;
 		
@@ -113,6 +94,47 @@ public class Moveable{
 
 	public int getDiameter() {
 		return diameter;
+	}
+
+	public void setColor(Color color) 
+	{
+		this.color = color;
+		
+	}
+
+	public boolean colliding(Moveable moveable) 
+	{
+		double deltaX = Math.abs(this.getPosition().getVx() - moveable.getPosition().getVx());
+        double deltaY = Math.abs(this.getPosition().getVy() - moveable.getPosition().getVy());
+        double distance = deltaX * deltaX + deltaY * deltaY;
+        if (distance < (this.getDiameter() / 2 + moveable.getDiameter() / 2) * this.getDiameter() / 2 + moveable.getDiameter() / 2)
+        {
+        	return true;
+        }
+        return false;
+	}
+
+	public void resolveCollision(Moveable moveable) 
+	{
+		double xDist = this.getPosition().getVx() - moveable.getPosition().getVx();
+        double yDist = this.getPosition().getVy() - moveable.getPosition().getVy();
+        double distSquared = xDist*xDist + yDist*yDist;
+        
+		double xVelocity = moveable.getVelocity().getVx() - this.getVelocity().getVx();
+        double yVelocity = moveable.getVelocity().getVy() - this.getVelocity().getVy();
+        double dotProduct = xDist * xVelocity + yDist * yVelocity;
+        if(dotProduct > 0)
+        {
+            double collisionScale = dotProduct / distSquared;
+            double xCollision = xDist * collisionScale;
+            double yCollision = yDist * collisionScale;
+
+            System.out.println(xCollision + " " + yCollision);
+            this.getVelocity().setVx(this.getVelocity().getVx() + xCollision);
+            this.getVelocity().setVy(this.getVelocity().getVy() + yCollision);
+            moveable.getVelocity().setVx(this.getVelocity().getVx() - xCollision);
+            moveable.getVelocity().setVy(this.getVelocity().getVy() - yCollision);
+        }
 	}
 
 }

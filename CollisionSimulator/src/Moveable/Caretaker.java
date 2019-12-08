@@ -40,7 +40,7 @@ public class Caretaker {
 			Vector2D vel = new Vector2D();
 			vel.setVx(this.moveables.get(i).getVelocity().getVx());
 			vel.setVy(this.moveables.get(i).getVelocity().getVy());
-			surface.addMoveable(pos, vel);
+			surface.addMoveable(pos, vel, moveables.get(i).getColor());
 		}
 	}
 	
